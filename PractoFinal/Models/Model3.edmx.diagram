@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2467e71921904fba91f3d6d0c0579462" Name="Diagram1">
+        <EntityTypeShape EntityType="PractoModel1.Appp" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PractoModel1.Doctor" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PractoModel1.Location" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PractoModel1.Signup" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PractoModel1.Specilization" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PractoModel1.TimeSlot" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="PractoModel1.FK_Appp_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="PractoModel1.FK_Appp_TimeSlots" ManuallyRouted="false" />
+        <AssociationConnector Association="PractoModel1.FK_Doctor_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="PractoModel1.FK_Doctor_Specilization" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

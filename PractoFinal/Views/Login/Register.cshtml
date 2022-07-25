@@ -1,0 +1,50 @@
+﻿@model PractoFinal.Models.ViewModel.Register
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+<input style="color:darkred" type="button"  value="Already have an account?" class="btn-link"
+       onclick="location.href='@Url.Action("Login", "Login")'" />
+
+<div>
+    @using (Html.BeginForm("Register", "Login"))
+    {
+        <div style="color:red;">@Html.ValidationSummary()</div>
+        <div class="row">
+            <!--Show details are saved successfully message-->
+            <div class="col-lg-12">@ViewBag.Message</div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-2">@Html.LabelFor(a => a.FirstName)</div>
+            <div class="col-lg-10">@Html.TextBoxFor(a => a.FirstName, new { @class = "form-control" })</div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-2">@Html.LabelFor(a => a.LastName)</div>
+            <div class="col-lg-10">@Html.TextBoxFor(a => a.LastName, new { @class = "form-control" })</div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-2">@Html.LabelFor(a => a.Email)</div>
+            <div class="col-lg-10">@Html.TextBoxFor(a => a.Email, new { @class = "form-control" })</div>
+        </div><br />
+        <div class="row">
+            <div class="col-lg-2"> @Html.LabelFor(a => a.Password)</div>
+            <div class="col-lg-10">@Html.TextBoxFor(a => a.Password, new { @class = "form-control", type = "Password" })</div>
+        </div><br />
+        <input type="submit" value="Register" class="btn btn-primary" />
+    }
+
+</div>
+
+<div>
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/photos/doctor-holding-digital-tablet-at-meeting-room-picture-id1189304032?k=20&m=1189304032&s=612x612&w=0&h=ovTNnR0JX2cRZkzMBed9exRO_PamZLlysLDFkXesr4Q=');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
+</div>

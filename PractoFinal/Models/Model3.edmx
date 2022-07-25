@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PractoModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appp">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PatientCity" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Doc_id" Type="int" Nullable="false" />
+          <Property Name="TimeSlotID" Type="int" Nullable="false" />
+          <Property Name="AppointmentDate" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Doc_id" />
+          </Key>
+          <Property Name="Doc_id" Type="int" Nullable="false" />
+          <Property Name="Loc_id" Type="int" Nullable="false" />
+          <Property Name="Spec_id" Type="int" Nullable="false" />
+          <Property Name="Doc_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Doc_exp" Type="int" Nullable="false" />
+          <Property Name="Doc_fees" Type="money" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Loc_id" />
+          </Key>
+          <Property Name="Loc_id" Type="int" Nullable="false" />
+          <Property Name="Loc_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Signup">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specilization">
+          <Key>
+            <PropertyRef Name="Spec_id" />
+          </Key>
+          <Property Name="Spec_id" Type="int" Nullable="false" />
+          <Property Name="Spec_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeSlots">
+          <Key>
+            <PropertyRef Name="TimeSlotID" />
+          </Key>
+          <Property Name="TimeSlotID" Type="int" Nullable="false" />
+          <Property Name="Time" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Appp_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Appp" Type="Self.Appp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Doc_id" />
+            </Principal>
+            <Dependent Role="Appp">
+              <PropertyRef Name="Doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appp_TimeSlots">
+          <End Role="TimeSlots" Type="Self.TimeSlots" Multiplicity="1" />
+          <End Role="Appp" Type="Self.Appp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeSlots">
+              <PropertyRef Name="TimeSlotID" />
+            </Principal>
+            <Dependent Role="Appp">
+              <PropertyRef Name="TimeSlotID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Loc_id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Loc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Specilization">
+          <End Role="Specilization" Type="Self.Specilization" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specilization">
+              <PropertyRef Name="Spec_id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Spec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PractoModel1StoreContainer">
+          <EntitySet Name="Appp" EntityType="Self.Appp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Signup" EntityType="Self.Signup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specilization" EntityType="Self.Specilization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeSlots" EntityType="Self.TimeSlots" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Appp_Doctor" Association="Self.FK_Appp_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Appp" EntitySet="Appp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appp_TimeSlots" Association="Self.FK_Appp_TimeSlots">
+            <End Role="TimeSlots" EntitySet="TimeSlots" />
+            <End Role="Appp" EntitySet="Appp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Location" Association="Self.FK_Doctor_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Specilization" Association="Self.FK_Doctor_Specilization">
+            <End Role="Specilization" EntitySet="Specilization" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PractoModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appp">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Doc_id" Type="Int32" Nullable="false" />
+          <Property Name="TimeSlotID" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Appp_Doctor" FromRole="Appp" ToRole="Doctor" />
+          <NavigationProperty Name="TimeSlot" Relationship="Self.FK_Appp_TimeSlots" FromRole="Appp" ToRole="TimeSlots" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Doc_id" />
+          </Key>
+          <Property Name="Doc_id" Type="Int32" Nullable="false" />
+          <Property Name="Loc_id" Type="Int32" Nullable="false" />
+          <Property Name="Spec_id" Type="Int32" Nullable="false" />
+          <Property Name="Doc_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Doc_exp" Type="Int32" Nullable="false" />
+          <Property Name="Doc_fees" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Appps" Relationship="Self.FK_Appp_Doctor" FromRole="Doctor" ToRole="Appp" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Doctor_Location" FromRole="Doctor" ToRole="Location" />
+          <NavigationProperty Name="Specilization" Relationship="Self.FK_Doctor_Specilization" FromRole="Doctor" ToRole="Specilization" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Loc_id" />
+          </Key>
+          <Property Name="Loc_id" Type="Int32" Nullable="false" />
+          <Property Name="Loc_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Location" FromRole="Location" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="Signup">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specilization">
+          <Key>
+            <PropertyRef Name="Spec_id" />
+          </Key>
+          <Property Name="Spec_id" Type="Int32" Nullable="false" />
+          <Property Name="Spec_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Specilization" FromRole="Specilization" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="TimeSlot">
+          <Key>
+            <PropertyRef Name="TimeSlotID" />
+          </Key>
+          <Property Name="TimeSlotID" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Appps" Relationship="Self.FK_Appp_TimeSlots" FromRole="TimeSlots" ToRole="Appp" />
+        </EntityType>
+        <Association Name="FK_Appp_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Appp" Type="Self.Appp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Doc_id" />
+            </Principal>
+            <Dependent Role="Appp">
+              <PropertyRef Name="Doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appp_TimeSlots">
+          <End Role="TimeSlots" Type="Self.TimeSlot" Multiplicity="1" />
+          <End Role="Appp" Type="Self.Appp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeSlots">
+              <PropertyRef Name="TimeSlotID" />
+            </Principal>
+            <Dependent Role="Appp">
+              <PropertyRef Name="TimeSlotID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Loc_id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Loc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Specilization">
+          <End Role="Specilization" Type="Self.Specilization" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specilization">
+              <PropertyRef Name="Spec_id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Spec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PractoEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appps" EntityType="Self.Appp" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Locations" EntityType="Self.Location" />
+          <EntitySet Name="Signups" EntityType="Self.Signup" />
+          <EntitySet Name="Specilizations" EntityType="Self.Specilization" />
+          <EntitySet Name="TimeSlots" EntityType="Self.TimeSlot" />
+          <AssociationSet Name="FK_Appp_Doctor" Association="Self.FK_Appp_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Appp" EntitySet="Appps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appp_TimeSlots" Association="Self.FK_Appp_TimeSlots">
+            <End Role="TimeSlots" EntitySet="TimeSlots" />
+            <End Role="Appp" EntitySet="Appps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Location" Association="Self.FK_Doctor_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Specilization" Association="Self.FK_Doctor_Specilization">
+            <End Role="Specilization" EntitySet="Specilizations" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PractoModel1StoreContainer" CdmEntityContainer="PractoEntities3">
+          <EntitySetMapping Name="Appps">
+            <EntityTypeMapping TypeName="PractoModel1.Appp">
+              <MappingFragment StoreEntitySet="Appp">
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="PatientCity" ColumnName="PatientCity" />
+                <ScalarProperty Name="Doc_id" ColumnName="Doc_id" />
+                <ScalarProperty Name="TimeSlotID" ColumnName="TimeSlotID" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="PractoModel1.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="Doc_id" ColumnName="Doc_id" />
+                <ScalarProperty Name="Loc_id" ColumnName="Loc_id" />
+                <ScalarProperty Name="Spec_id" ColumnName="Spec_id" />
+                <ScalarProperty Name="Doc_name" ColumnName="Doc_name" />
+                <ScalarProperty Name="Doc_exp" ColumnName="Doc_exp" />
+                <ScalarProperty Name="Doc_fees" ColumnName="Doc_fees" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="PractoModel1.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Loc_id" ColumnName="Loc_id" />
+                <ScalarProperty Name="Loc_name" ColumnName="Loc_name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Signups">
+            <EntityTypeMapping TypeName="PractoModel1.Signup">
+              <MappingFragment StoreEntitySet="Signup">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specilizations">
+            <EntityTypeMapping TypeName="PractoModel1.Specilization">
+              <MappingFragment StoreEntitySet="Specilization">
+                <ScalarProperty Name="Spec_id" ColumnName="Spec_id" />
+                <ScalarProperty Name="Spec_name" ColumnName="Spec_name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeSlots">
+            <EntityTypeMapping TypeName="PractoModel1.TimeSlot">
+              <MappingFragment StoreEntitySet="TimeSlots">
+                <ScalarProperty Name="TimeSlotID" ColumnName="TimeSlotID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

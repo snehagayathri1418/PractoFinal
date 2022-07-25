@@ -1,0 +1,110 @@
+﻿@model IEnumerable<PractoFinal.Models.Display>
+
+@{
+    ViewBag.Title = "Filter";
+}
+
+
+<div>
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/photos/blue-background-picture-id540533738?k=20&m=540533738&s=612x612&w=0&h=HZ2pFDGkHftUs75WiCkYi_Rrqo-srvBI41u7Jq98JgY=');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
+</div>
+
+
+<div class=" bg-primary" style="text-align:center">
+    <h2>Doctors Search</h2>
+</div>
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <form c asp-action="Filter" method="get">
+        <td>
+            <label>LOCATION:</label>
+        </td>
+        <td>
+            <input type="text" class="form-control" name="Location" value="@ViewData["Current"]" />
+
+        </td>
+        <td>
+            <label>SPECIALIZATION:</label>
+
+        </td>
+        <td style="display:flex">
+            <input type="text" class="form-control" name="Specilization" value="@ViewData["Current"]" />
+            <input type="submit" value="Search" class="btn btn-default" />
+        </td>
+
+        <td style="color:red">
+            @Html.ActionLink("Fees [Low to High]   ", "orderby")
+        </td>
+        <td>
+            @Html.ActionLink("Fees[High to Low]", "DescOrderby")
+
+        </td>
+        </form>
+
+    </tr>
+</table>
+
+<table class="table">
+
+
+
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Doc_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doc_exp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doc_fees)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Loc_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Spec_name)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Doc_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doc_exp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doc_fees)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Loc_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spec_name)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Book Appointment", "Book", new { id = item.Doc_id })
+            </td>
+        </tr>
+    }
+
+</table>

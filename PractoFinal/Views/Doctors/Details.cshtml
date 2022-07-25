@@ -1,0 +1,67 @@
+﻿@model PractoFinal.Models.Doctor
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Doctor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Doc_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doc_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doc_exp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doc_exp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doc_fees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doc_fees)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.Loc_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location.Loc_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specilization.Spec_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Specilization.Spec_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Doc_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
